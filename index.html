@@ -2,908 +2,681 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GameVault — Great games. Right in your browser.</title>
-<meta name="description" content="GameVault — a curated catalog and discovery platform for games ported to run in web browsers.">
-<meta property="og:title" content="GameVault">
-<meta property="og:description" content="Great games. Right in your browser.">
-<meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0c12'/%3E%3Ccircle cx='32' cy='32' r='18' fill='none' stroke='%237c5cff' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%2322d3ee'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GameVault OS</title>
 <style>
-:root{--bg:#0a0c12;--bg2:#0f131c;--surface:#141926;--surface2:#1b2232;--border:#232c40;--text:#e8ecf5;--muted:#97a2b8;--accent:#7c5cff;--accent2:#22d3ee;--warn:#f59e0b;--gold:#fbbf24;--radius:14px;--max:1240px;color-scheme:dark}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(1200px 600px at 20% -10%,rgba(124,92,255,.18),transparent 60%),radial-gradient(900px 500px at 100% 0%,rgba(34,211,238,.12),transparent 55%),var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
-a{color:inherit;text-decoration:none}
-button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
-img{max-width:100%;display:block}
-.app{display:flex;flex-direction:column;min-height:100vh}
-.main{flex:1;width:100%;max-width:var(--max);margin:0 auto;padding:24px 20px 60px}
-.nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);background:rgba(10,12,18,.75);border-bottom:1px solid var(--border)}
-.nav-inner{max-width:var(--max);margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:24px;justify-content:space-between;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px}
-.brand svg{color:var(--accent)}
-.nav-links{display:flex;gap:4px;flex-wrap:wrap}
-.nav-link{padding:8px 12px;border-radius:10px;color:var(--muted);transition:color .15s,background .15s;font-size:14px}
-.nav-link:hover{color:var(--text);background:var(--surface)}
-.nav-link.active{color:var(--text);background:var(--surface)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:12px;border:1px solid transparent;font-weight:600;font-size:14px;transition:transform .12s,background .15s,border-color .15s,box-shadow .2s;white-space:nowrap}
-.btn:active{transform:translateY(1px)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn-lg{padding:12px 20px;font-size:15px}
-.btn-sm{padding:6px 12px;font-size:12px}
-.btn-primary{background:linear-gradient(135deg,var(--accent),#5a3dd6);color:#fff;box-shadow:0 8px 24px rgba(124,92,255,.35)}
-.btn-primary:hover:not(:disabled){box-shadow:0 12px 32px rgba(124,92,255,.5)}
-.btn-ghost{background:var(--surface);color:var(--text);border-color:var(--border)}
-.btn-ghost:hover:not(:disabled){border-color:var(--accent)}
-.btn-disabled{background:var(--surface);color:var(--muted);border-color:var(--border);cursor:not-allowed}
-.btn-gold{background:linear-gradient(135deg,#fbbf24,#d97706);color:#1a1400;box-shadow:0 8px 24px rgba(251,191,36,.25)}
-.icon-btn{width:36px;height:36px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:var(--surface2);color:var(--muted);border:1px solid var(--border);transition:color .15s,border-color .15s}
-.icon-btn:hover{color:var(--text);border-color:var(--accent)}
-.icon-btn.is-fav{color:#ff6b9d;border-color:#ff6b9d}
-.input{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:12px;font:inherit;width:100%}
-.input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,92,255,.2)}
-textarea.input{resize:vertical;min-height:200px;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.5}
-.hero{position:relative;padding:56px 0 40px;overflow:hidden;border-radius:20px;margin-bottom:32px}
-.hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(700px 300px at 15% 30%,rgba(124,92,255,.25),transparent 60%),radial-gradient(600px 280px at 90% 10%,rgba(34,211,238,.15),transparent 60%)}
-.hero-inner{position:relative;max-width:780px;padding:0 8px}
-.hero-kicker{color:var(--accent2);letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:600;margin:0 0 12px}
-.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.05;margin:0 0 16px;letter-spacing:-.02em}
-.hero-sub{color:var(--muted);font-size:17px;max-width:620px;margin:0 0 24px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
-.hero-search{display:flex;gap:8px;margin-bottom:24px;max-width:560px}
-.hero-stats{display:flex;gap:32px;list-style:none;padding:0;margin:0;flex-wrap:wrap}
-.hero-stats li{display:flex;flex-direction:column}
-.hero-stats strong{font-size:24px}
-.hero-stats span{color:var(--muted);font-size:13px}
-.shelf{margin:36px 0}
-.shelf-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
-.shelf-head h2{margin:0;font-size:20px;letter-spacing:-.01em}
-.shelf-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,240px);gap:16px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
-.muted{color:var(--muted)}
-.page-head{margin:12px 0 24px}
-.page-head h1{margin:0 0 8px;font-size:clamp(26px,4vw,36px);letter-spacing:-.02em}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,border-color .15s,box-shadow .15s;position:relative}
-.card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 12px 32px rgba(0,0,0,.4)}
-.card-media{position:relative;aspect-ratio:16/10;background:var(--surface2);display:block}
-.cover-wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(135deg,hsl(var(--hue,260) 55% 22%),hsl(calc(var(--hue,260) + 60) 45% 10%))}
-.cover-initials{font-size:2.5rem;font-weight:800;color:rgba(255,255,255,.85);letter-spacing:.05em;text-shadow:0 2px 8px rgba(0,0,0,.3)}
-.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.5));pointer-events:none}
-.card-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
-.card-title{margin:0;font-size:15px;line-height:1.3;font-weight:600}
-.card-chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-size:11px;padding:3px 8px;border-radius:999px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
-.chip-live{color:#22c55e;border-color:rgba(34,197,94,.3)}
-.chip-repo{color:var(--accent2);border-color:rgba(34,211,238,.3)}
-.chip-stars{color:var(--gold);border-color:rgba(251,191,36,.3)}
-.chip-featured{background:linear-gradient(135deg,#fbbf24,#d97706);color:#1a1400;border:0;font-weight:700}
-.card-actions{display:flex;gap:6px;margin-top:auto}
-.card-actions .btn{padding:8px 12px;font-size:12px}
-.host-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
-.host-tile{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px;transition:border-color .15s,transform .15s;cursor:pointer;text-align:left}
-.host-tile:hover{border-color:var(--accent);transform:translateY(-2px)}
-.filters{display:grid;grid-template-columns:1fr 200px 200px auto;gap:10px;margin-bottom:24px;align-items:center}
-.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);margin-bottom:16px;font-size:13px}
-.back-link:hover{color:var(--text)}
-.detail-hero{display:grid;grid-template-columns:360px 1fr;gap:28px;margin-bottom:32px}
-.detail-cover{width:100%;aspect-ratio:16/10;border-radius:var(--radius);background:var(--surface2);overflow:hidden}
-.detail-info h1{margin:0 0 12px;font-size:clamp(28px,4vw,40px);letter-spacing:-.02em}
-.detail-desc{color:var(--muted);font-size:16px;line-height:1.6;max-width:60ch}
-.detail-actions{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 16px}
-.detail-actions .is-fav{color:#ff6b9d}
-.disclaimer{color:var(--muted);font-size:13px;line-height:1.55;margin-top:16px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
-.meta-table{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:24px}
-.meta-table>div{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px}
-.meta-table dt{color:var(--muted);font-size:12px;margin-bottom:4px}
-.meta-table dd{margin:0;font-size:13px;word-break:break-all}
-.state{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px 24px;text-align:center;margin:24px 0;display:flex;flex-direction:column;align-items:center;gap:12px}
-.state h1,.state h3{margin:0}
-.state-error{border-color:rgba(239,68,68,.4)}
-.state-error h3{color:#ef4444}
-.import-stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.import-stats>div{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;flex-direction:column}
-.import-stats strong{font-size:22px}
-.import-stats span{color:var(--muted);font-size:12px}
-.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px}
-.table-wrap table{width:100%;border-collapse:collapse;font-size:13px}
-.table-wrap th,.table-wrap td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
-.table-wrap th{background:var(--surface);font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
-.cell-url a{color:var(--accent2)}
-.cell-warn{color:var(--warn);font-size:12px}
-.form-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:12px}
-.form-row label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
-.footer{border-top:1px solid var(--border);background:var(--bg2);margin-top:60px}
-.footer-inner{max-width:var(--max);margin:0 auto;padding:24px 20px;font-size:13px;display:flex;flex-direction:column;gap:6px}
-.footer p{margin:0}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
-.badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em;background:var(--warn);color:#1c1400;margin-left:8px;vertical-align:middle}
-.progress{width:100%;height:6px;background:var(--surface2);border-radius:999px;overflow:hidden;margin-top:8px}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .2s}
-.enrich-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:24px 0}
-.enrich-panel h3{margin:0 0 8px}
-.enrich-panel p{margin:0 0 16px;font-size:13px;color:var(--muted)}
-.enrich-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.enrich-log{font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px;max-height:200px;overflow-y:auto;margin-top:12px;white-space:pre-wrap}
-.enrich-log .ok{color:#22c55e}
-.enrich-log .err{color:#ef4444}
-@media(max-width:800px){.filters{grid-template-columns:1fr 1fr}.detail-hero{grid-template-columns:1fr}.nav-inner{flex-direction:column;align-items:flex-start}.nav-links{width:100%;overflow-x:auto}.hero{padding:32px 0 24px}.hero-stats{gap:20px}.detail-actions{flex-direction:column}.detail-actions .btn{width:100%}}
-@media(max-width:500px){.filters{grid-template-columns:1fr}.shelf-row{grid-auto-columns:minmax(180px,200px)}}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #000000;
+    --widget-bg: rgba(15, 15, 20, 0.7);
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --text: #ffffff;
+    --text-muted: #8b8b93;
+    --accent: #0070d1;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── BOOT SCREEN ─── */
+  #boot-screen {
+    position: fixed; inset: 0;
+    background: radial-gradient(circle at 50% 50%, #1a1a24 0%, #000 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 1000; transition: opacity 0.8s ease; cursor: pointer;
+  }
+  .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .particle {
+    position: absolute; width: 4px; height: 4px; background: #fff; border-radius: 50%;
+    opacity: 0; box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+    animation: floatUp 4s infinite linear;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+  }
+  .ps-logo-btn {
+    width: 80px; height: 80px; border-radius: 50%;
+    border: 3px solid #fff; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .ps-logo-btn svg { width: 40px; height: 40px; fill: #fff; }
+  #boot-screen:hover .ps-logo-btn { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+  .boot-text { font-size: 14px; font-weight: 500; letter-spacing: 1px; color: #ccc; }
+
+  /* ─── MAIN UI ─── */
+  #main-ui { opacity: 0; transition: opacity 0.5s ease; height: 100vh; display: flex; flex-direction: column; }
+  #main-ui.active { opacity: 1; }
+
+  .bg-container {
+    position: absolute; inset: 0; z-index: 1;
+    background-size: cover; background-position: center top;
+    transition: background-image 0.5s ease, background-color 0.5s ease;
+  }
+  .bg-overlay {
+    position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 35%, rgba(0,0,0,0) 70%),
+                linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 40%);
+  }
+
+  /* Top Bar */
+  .top-bar {
+    position: relative; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 40px; height: 80px;
+  }
+  .nav-tabs { display: flex; gap: 20px; font-size: 18px; font-weight: 500; }
+  .nav-tab { color: var(--text-muted); cursor: pointer; transition: color 0.2s; }
+  .nav-tab.active { color: #fff; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+  
+  .sys-icons { display: flex; align-items: center; gap: 20px; color: var(--text-muted); }
+  .sys-icons svg { width: 20px; height: 20px; fill: currentColor; cursor: pointer; transition: color 0.2s; }
+  .sys-icons svg:hover { color: #fff; }
+  .avatar { width: 32px; height: 32px; border-radius: 50%; background: #333; overflow: hidden; cursor: pointer; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .clock { font-size: 16px; font-weight: 500; color: #fff; margin-left: 10px; }
+
+  /* Carousel */
+  .carousel-container {
+    position: relative; z-index: 10;
+    padding: 10px 40px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .carousel { 
+    display: flex; gap: 14px; align-items: center; 
+    overflow-x: auto; scrollbar-width: none; padding: 10px 0;
+    scroll-behavior: smooth;
+  }
+  .carousel::-webkit-scrollbar { display: none; }
+  
+  .carousel-item {
+    flex: 0 0 72px; width: 72px; height: 72px; border-radius: 12px;
+    background: rgba(255,255,255,0.1); background-size: cover; background-position: center;
+    cursor: pointer; transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+    border: 2px solid transparent; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .carousel-item:hover { transform: scale(1.05); }
+  .carousel-item.active {
+    transform: scale(1.15); border-color: #fff; z-index: 5;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 10px 20px rgba(0,0,0,0.6);
+  }
+  .carousel-item svg { width: 30px; height: 30px; fill: rgba(255,255,255,0.8); }
+  
+  /* Gradients for missing covers */
+  .fallback-cover {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 800; color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+  }
+
+  .selected-title { font-size: 14px; font-weight: 500; color: #fff; margin-left: 4px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+
+  /* Content Area */
+  .content-area { flex: 1; position: relative; z-index: 10; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 40px 40px 40px; }
+
+  /* Hero */
+  .hero { max-width: 600px; margin-bottom: 40px; transition: opacity 0.3s ease; }
+  .hero h1 { font-size: 56px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; text-transform: uppercase; text-shadow: 0 4px 20px rgba(0,0,0,0.8); margin-bottom: 12px; }
+  .hero p { font-size: 16px; color: #ccc; margin-bottom: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .actions { display: flex; gap: 16px; align-items: center; }
+  .btn-play {
+    background: #fff; color: #000; font-size: 16px; font-weight: 600;
+    padding: 12px 48px; border-radius: 99px; border: none; cursor: pointer;
+    transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; justify-content: center;
+  }
+  .btn-play:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,255,255,0.4); }
+  .btn-icon {
+    width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.2);
+    border: none; color: #fff; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 18px; backdrop-filter: blur(10px); transition: all 0.2s;
+  }
+  .btn-icon:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+  .btn-icon.active { color: #ff6b9d; background: rgba(255, 107, 157, 0.2); }
+
+  /* Widgets */
+  .widgets-grid { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+  .widgets-grid::-webkit-scrollbar { display: none; }
+  
+  .widget {
+    flex: 0 0 300px; background: var(--widget-bg); border: 1px solid var(--border-glass);
+    border-radius: 16px; padding: 16px; backdrop-filter: blur(20px);
+    display: flex; flex-direction: column; gap: 12px;
+    transition: background 0.2s; position: relative;
+  }
+  .widget:hover { background: rgba(30, 30, 40, 0.85); }
+  .widget-header { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: #fff; }
+  .widget-header svg { width: 16px; height: 16px; fill: #fff; opacity: 0.7; }
+  
+  /* Dynamic Widget Inner Content */
+  .widget-games { display: flex; gap: 8px; overflow: hidden; }
+  .widget-game-cover {
+    width: 60px; height: 60px; border-radius: 8px; background-size: cover; background-position: center;
+    flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .storage-bar { width: 100%; height: 6px; background: #333; border-radius: 3px; overflow: hidden; display: flex; margin-top: 8px; }
+  .storage-fill { height: 100%; background: #0070d1; }
+  .storage-text { font-size: 12px; color: #aaa; margin-top: 4px; display: flex; justify-content: space-between; }
+
+  .btn-action {
+    background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 16px; border-radius: 99px; font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: background 0.2s; width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px;
+  }
+  .btn-action:hover { background: rgba(255,255,255,0.2); }
+  .btn-action:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ─── BROWSE SCREEN ─── */
+  #browse-screen {
+    position: fixed; inset: 0; z-index: 500; background: var(--bg);
+    padding: 100px 40px 40px; overflow-y: auto; display: none;
+    background: linear-gradient(to bottom, #0a0a0a, #000);
+  }
+  #browse-screen.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  
+  .browse-header { 
+    position: fixed; top: 0; left: 0; right: 0; padding: 20px 40px; 
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); z-index: 501;
+    display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass);
+  }
+  .browse-header h2 { font-size: 24px; font-weight: 700; }
+  .search-input { 
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; 
+    padding: 10px 20px; border-radius: 99px; outline: none; width: 300px; font-size: 14px;
+  }
+  .search-input:focus { border-color: #fff; }
+  
+  .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; margin-top: 20px; }
+  .grid-item { display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: transform 0.2s; }
+  .grid-item:hover { transform: scale(1.03); }
+  .grid-cover { 
+    aspect-ratio: 3/4; border-radius: 12px; background: #222; background-size: cover; background-position: center; 
+    border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
+    font-size: 32px; font-weight: 800; color: rgba(255,255,255,0.2);
+  }
+  .grid-title { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 40px; right: 40px; z-index: 999;
+    background: rgba(255,255,255,0.1); backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2); padding: 16px 24px; border-radius: 12px;
+    font-size: 14px; font-weight: 500; transform: translateY(100px); opacity: 0;
+    transition: all 0.3s cubic-bezier(0.2, 0, 0, 1); pointer-events: none;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
 </style>
 </head>
 <body>
-<div class="app">
-<header class="nav">
-  <div class="nav-inner">
-    <a href="#/" class="brand" aria-label="GameVault home">
-      <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="32" cy="32" r="6" fill="currentColor"/></svg>
-      <span>GameVault</span>
-    </a>
-    <nav class="nav-links" id="nav-links" aria-label="Primary"></nav>
+
+<!-- BOOT SCREEN -->
+<div id="boot-screen" onclick="wakeSystem()">
+  <div class="particles" id="particles"></div>
+  <div class="ps-logo-btn">
+    <svg viewBox="0 0 50 50"><path d="M25 5C14 5 5 14 5 25s9 20 20 20 20-9 20-20S36 5 25 5zm0 35c-8.3 0-15-6.7-15-15S16.7 10 25 10s15 6.7 15 15-6.7 15-15 15zm2.5-21.5v10h-5v-10h5z"/></svg>
   </div>
-</header>
-<main class="main" id="app"></main>
-<footer class="footer">
-  <div class="footer-inner">
-    <p><strong>GameVault</strong> — a curated catalog of browser game ports. Games are hosted on third-party sites; GameVault does not host or distribute game files. Not affiliated with any publisher.</p>
-    <p class="muted">Catalog source: Ultimate Catalog of Web Game Ports, GlitchMod, and awesome-decomp-games. Metadata enrichment uses public GitHub APIs only when you request it. All state is stored in your browser.</p>
-  </div>
-</footer>
+  <div class="boot-text">Press the PS button on your controller</div>
 </div>
-<script>
-'use strict';
 
-/* ============================================================
-   CURATED CATALOG — 60 AAA / high-profile games, all with demos
-   Removed: source-only entries, junk/meme rows, obscure ports
-   without working demos. Added: GTA III, Vice City, Halo CE,
-   Doom 3, Quake II/III, RTCW, Simpsons Hit & Run, WipEout,
-   Skate 3, Sonic 3 A.I.R., Minecraft, LEGO Island, and more.
-   ============================================================ */
-const RAW = [
-  // ---- Flagship AAA / iconic (★ Featured) ----
-  ["Grand Theft Auto III","https://wasmarcade.com/gta3","",1],
-  ["Grand Theft Auto: Vice City","https://joncodeofficial.github.io/gta-vice-city-wasm/","",1],
-  ["Halo: Combat Evolved","https://mitchellhynes.com/halo/halo.html","",1],
-  ["Call of Duty: Black Ops Zombies","http://vel.gg/bo1z","",1],
-  ["Call of Duty: Modern Warfare 2","https://ovz-game-production.up.railway.app","",1],
-  ["Diablo","https://d07riv.github.io/diabloweb/","https://github.com/d07RiV/diabloweb",1],
-  ["Doom 3","https://gn-math.dev/?id=626","https://github.com/web-ports/doom-3",1],
-  ["Quake III Arena","https://q3.pieter.com","",1],
-  ["Quake II","https://q2.pieter.com","",1],
-  ["Half-Life","http://pixelsuft.github.io/hl/","https://github.com/Pixelsuft/hl",1],
-  ["Counter-Strike 1.6","https://csjs.live","",1],
-  ["Command & Conquer: Red Alert 2","https://chronodivide.com/","",1],
-  ["Command & Conquer: Generals Zero Hour","https://generals.wasm.ltd","",1],
-  ["The Simpsons: Hit & Run","https://glitchmod.com/games/the-simpsons-hit-run/mods/port-simpsons-hit-and-run","",1],
-  ["Return to Castle Wolfenstein","https://rtcw.pieter.com","",1],
+<!-- MAIN UI -->
+<div id="main-ui">
+  <div class="bg-container" id="hero-bg"></div>
+  <div class="bg-overlay"></div>
 
-  // ---- High-profile AAA / console classics ----
-  ["Minecraft (EaglercraftX)","https://wasmarcade.com/minecraft","",0],
-  ["Sonic 3 A.I.R.","https://burnedpopcorn.github.io/","https://github.com/burnedpopcorn/sonic3air-webport",0],
-  ["Crash Bash Online","https://crashbash.app/","",0],
-  ["Crash Team Racing (High Octane)","https://rinnegatamante.github.io/Crash-Team-Racing-High-Octane/","",0],
-  ["Animal Crossing","https://retrogamescenter.ru/ports/ac-webport-main/index.html","https://github.com/web-ports/ac-gamecube",0],
-  ["Bendy and The Ink Machine","https://gn-math.github.io/web-port/bendy/","https://github.com/genizy/web-port/tree/main/bendy",0],
-  ["Brotato","https://gn-math.dev/?id=723","https://github.com/BlueGameMC/BrotatoWeb",0],
-  ["Buckshot Roulette","https://gn-math.github.io/web-port/buckshot-roulette/","https://github.com/genizy/web-port/tree/main/buckshot-roulette",0],
-  ["Celeste","https://gn-math.dev/?id=623","https://github.com/MercuryWorkshop/celeste-wasm",0],
-  ["Cuphead","https://gn-math.github.io/web-port/cuphead/","https://github.com/genizy/web-port/tree/main/cuphead",0],
-  ["Deltarune","https://aukak.itch.io/deltarune","",0],
-  ["Undertale (Deltatraveler)","https://gn-math.dev/?id=560","",0],
-  ["Baldi's Basics Plus","https://gn-math.github.io/web-port/baldi-plus/","https://github.com/genizy/web-port/tree/main/baldi-plus",0],
-  ["Baldi's Basics Classic Remastered","https://gn-math.github.io/web-port/baldi-remaster/","https://github.com/genizy/web-port/tree/main/baldi-remaster",0],
-  ["Amanda The Adventurer","https://gn-math.github.io/web-port/amanda-the-adventurer/","https://github.com/genizy/web-port/tree/main/amanda-the-adventurer",0],
-  ["Class of '09","https://gn-math.github.io/web-port/class-of-09/","https://github.com/genizy/web-port/tree/main/class-of-09",0],
-  ["Dead Plate","https://gn-math.github.io/web-port/dead-plate/","https://github.com/genizy/web-port/tree/main/dead-plate",0],
-  ["Cruelty Squad","https://gn-math.dev/?id=825","https://github.com/imt00dizzy/cruelty-squad",0],
-  ["Antonblast","https://gn-math.dev/?id=711","https://github.com/web-ports/antonblast",0],
-  ["Clustertruck","https://wasm.rip/files/ClusterTruck/clustertruck.html","https://github.com/wasmdotrip/Clustertruck-Port",0],
-  ["20 Minutes Till Dawn","https://gn-math.dev/?id=819","https://github.com/web-ports/20-minutes",0],
-  ["Among Us","https://wasm.rip/files/amongus/index.html","https://github.com/wasmdotrip/AmongUsPort",0],
-  ["Cave Story","https://midzer.de/wasm/cavestory/","https://github.com/midzer/nxengine-evo",0],
-  ["Cro-Mag Rally","https://midzer.de/wasm/cromagrally/","https://github.com/midzer/CroMagRally",0],
-  ["Descent (DXX-Rebirth)","https://midzer.de/wasm/descent1/","https://github.com/midzer/dxx-rebirth",0],
-  ["Commander Keen","https://www.jamesfmackenzie.com/chocolatekeen/","https://github.com/jamesfmackenzie/chocolatekeen",0],
-  ["Carmageddon","https://rgc.zone/ports/carmaweb/index.html","https://github.com/Carter54git/dethrace-ported-to-web",0],
-  ["3D Pinball – Space Cadet","https://ksylvestre.itch.io/space-cadet-pinball","https://github.com/k4zmu2a/SpaceCadetPinball",0],
-  ["Battle City","https://battle-city.berrry.app","https://github.com/vgrichina/battlecity",0],
-  ["Beneath a Steel Sky","https://scummweb.tsilva.eu/beneath-a-steel-sky/play","",0],
-  ["Caesar II","https://second-impressions.github.io/caesar2-port/","",0],
-  ["Daytona USA","https://johannruiz.github.io/Daytona-USA-Web/","",0],
-  ["Daggerfall","https://daggerfalljs.dev/","",0],
-  ["Cut the Rope DX","https://yell0wsuit.github.io/cuttherope-dx/","",0],
-  ["Bad Piggies","https://gn-math.dev/?id=752","",0],
-  ["Call of Duty Web Collection","https://cod-webports.pages.dev/","",0],
-  ["Call of Mini: Dino Hunter","https://comdh.krig.games/","",0],
-  ["Chasm: The Rift","https://rgc.zone/ports/chasmweb/run.html","",0],
-  ["Brutal Doom","https://rgc.zone/ports/brutaldoom/index.html","",0],
-  ["DOOM I & II","https://retrogamescenter.ru/ports/truedoom/index.html","",0],
-  ["Duke Nukem 3D","https://retrogamescenter.ru/ports/duke3dtg/index.html","",0],
-  ["LEGO Island","https://isle.pizza/","",0],
-  ["WipEout","https://glitchmod.com/games/wipeout/mods/port-wipeout","",0],
-  ["Skate 3 Fan Game","https://glitchmod.com/games/skate-3/mods/port-skate-3","",0],
-  ["PES 6","http://pes6.optijuegos.net","",0],
-  ["Urban Terror","https://ut.pieter.com","",0],
-  ["QuakeWorld","https://q1.pieter.com","",0],
-  ["NetQuake","https://www.netquake.io/","",0],
-  ["Doom Multiplayer (Silent Space Marine)","https://silentspacemarine.com/","",0],
-  ["Nacht der Untoten (CoD Zombies)","https://zombies.bitcoinsapi.com/","",0],
-];
+  <header class="top-bar">
+    <div class="nav-tabs">
+      <div class="nav-tab active">Games</div>
+      <div class="nav-tab">Media</div>
+    </div>
+    
+    <div class="sys-icons">
+      <svg viewBox="0 0 24 24" onclick="openBrowse()"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
+      <div class="avatar"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User"></div>
+      <div class="clock" id="clock">12:00 PM</div>
+    </div>
+  </header>
 
-/* ---------- Helpers ---------- */
-const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function baseTitle(t){return t.replace(/\s*\(\d+\)\s*$/,'').trim()}
-function slugKey(t){return baseTitle(t).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'game'}
-function isValidUrl(u){if(!u)return false;try{const x=new URL(u);return x.protocol==='http:'||x.protocol==='https:'}catch{return false}}
-function safe(u){return isValidUrl(u)?u:''}
-function hue(str){let h=0;for(let i=0;i<str.length;i++)h=(h*31+str.charCodeAt(i))>>>0;return h%360}
-function initials(t){return t.split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase()||'?'}
-function safeHost(u){try{return new URL(u).hostname}catch{return ''}}
+  <div class="carousel-container">
+    <div class="carousel" id="carousel"></div>
+    <div class="selected-title" id="selected-title">Loading...</div>
+  </div>
 
-/* ---------- Storage ---------- */
-const store={
-  get(k,f){try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},
-  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
-};
-const K={
-  fav:'gv.fav.v1',
-  recent:'gv.recent.v1',
-  custom:'gv.custom.v1',
-  enriched:'gv.enriched.v1'
-};
-function getFavorites(){const v=store.get(K.fav,[]);return Array.isArray(v)?v.filter(x=>typeof x==='string'):[]}
-function setFavorites(l){store.set(K.fav,l)}
-function isFav(id){return getFavorites().includes(id)}
-function toggleFav(id){const cur=getFavorites();const next=cur.includes(id)?cur.filter(x=>x!==id):[...cur,id];setFavorites(next);return next.includes(id)}
-function getRecent(){const v=store.get(K.recent,[]);return Array.isArray(v)?v.filter(e=>e&&typeof e.id==='string'&&typeof e.at==='number'):[]}
-function pushRecent(id){const cur=getRecent().filter(e=>e.id!==id);cur.unshift({id,at:Date.now()});store.set(K.recent,cur.slice(0,30))}
-function getCustom(){const v=store.get(K.custom,[]);return Array.isArray(v)?v:[]}
-function setCustom(l){store.set(K.custom,l)}
-
-/* ---------- Enrichment store ---------- */
-function getEnrichmentAll(){const v=store.get(K.enriched,{});return v&&typeof v==='object'?v:{}}
-function getEnrichment(id){return getEnrichmentAll()[id]}
-function setEnrichment(id,data){const m=getEnrichmentAll();m[id]=data;store.set(K.enriched,m)}
-function clearEnrichment(){store.set(K.enriched,{})}
-function enrichmentCount(){return Object.keys(getEnrichmentAll()).length}
-
-/* ---------- Catalog ---------- */
-function buildSeeds(){
-  const games=[];const index=new Map();
-  for(const [t,d,r,f] of RAW){
-    if(!d) continue; // source-only entries removed: demo is required
-    const key=slugKey(t);
-    if(index.has(key)){
-      const g=games[index.get(key)];
-      if(d && !g.demoUrl) g.demoUrl=d;
-      if(r && !g.repositoryUrl) g.repositoryUrl=r;
-      if(f) g.featured=true;
-      continue;
-    }
-    index.set(key,games.length);
-    games.push({
-      id:key,title:t,description:'',
-      demoUrl:safe(d),repositoryUrl:safe(r),
-      coverUrl:'',screenshots:[],trailerUrl:'',genres:[],year:null,
-      players:'',featured:!!f,dateAdded:'2026-10-20',
-      source:'Ultimate Catalog of Web Game Ports'
-    });
-  }
-  return games;
-}
-let _cache=null;
-function baseGames(){
-  if(_cache) return _cache;
-  const map=new Map();
-  for(const g of [...buildSeeds(),...getCustom()]) if(!map.has(g.id)) map.set(g.id,g);
-  _cache=Array.from(map.values()).sort((a,b)=>a.title.localeCompare(b.title));
-  return _cache;
-}
-function view(g){
-  const e=getEnrichment(g.id);
-  if(!e) return g;
-  const out={...g};
-  if(e.description && !out.description) out.description=e.description;
-  if(e.coverUrl && !out.coverUrl) out.coverUrl=e.coverUrl;
-  if(e.stars!=null) out.stars=e.stars;
-  if(e.license) out.license=e.license;
-  if(e.topics && e.topics.length && (!out.genres || !out.genres.length)) out.genres=e.topics.slice(0,3);
-  out.enrichedAt=e.enrichedAt;
-  return out;
-}
-function allGames(){return baseGames().map(view)}
-function getGame(id){const g=baseGames().find(x=>x.id===id);return g?view(g):undefined}
-function invalidate(){_cache=null}
-function hosts(){const m=new Map();for(const g of baseGames()){if(!g.demoUrl)continue;const h=safeHost(g.demoUrl);if(h)m.set(h,(m.get(h)||0)+1)}return [...m.entries()].sort((a,b)=>b[1]-a[1])}
-
-/* ============================================================
-   ENRICHMENT — GitHub API + opengraph.githubassets.com
-   ============================================================ */
-const ENRICH_TTL = 7 * 24 * 60 * 60 * 1000;
-
-async function ghFetch(owner, repo){
-  try{
-    const r = await fetch(`https://ungh.cc/repos/${owner}/${repo}`, {signal:AbortSignal.timeout(8000)});
-    if(r.ok){
-      const d = await r.json();
-      const repo_ = d.repo || d;
-      if(repo_ && (repo_.description!==undefined || repo_.stars!==undefined)){
-        return {
-          description: repo_.description || '',
-          license: repo_.license || '',
-          stars: repo_.stars || 0,
-          topics: repo_.topics || [],
-          coverUrl: `https://opengraph.githubassets.com/1/${owner}/${repo}`,
-          source:'ungh.cc'
-        };
-      }
-    }
-  }catch{}
-  try{
-    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}`,{
-      headers:{'Accept':'application/vnd.github+json'},
-      signal:AbortSignal.timeout(8000)
-    });
-    if(r.status===403){throw new Error('GitHub rate limit hit. Wait an hour or use ungh.cc fallback.')}
-    if(!r.ok) throw new Error('GitHub responded '+r.status);
-    const d = await r.json();
-    return {
-      description: d.description || '',
-      license: d.license?.spdx_id || d.license?.name || '',
-      stars: d.stargazers_count || 0,
-      topics: d.topics || [],
-      coverUrl: `https://opengraph.githubassets.com/1/${owner}/${repo}`,
-      source:'api.github.com'
-    };
-  }catch(e){
-    throw e;
-  }
-}
-
-function extractGh(url){
-  const m = (url||'').match(/github\.com\/([^/]+)\/([^/?#]+)/i);
-  return m ? {owner:m[1], repo:m[2]} : null;
-}
-
-async function enrichGame(game, {force=false}={}){
-  const existing = getEnrichment(game.id);
-  if(existing && !force && existing.enrichedAt && (Date.now()-existing.enrichedAt) < ENRICH_TTL){
-    return {skipped:true, data:existing};
-  }
-  const gh = extractGh(game.repositoryUrl);
-  if(!gh) return {skipped:true, reason:'No GitHub repo to enrich from'};
-
-  let data = null;
-  let lastErr = null;
-  for(let attempt=0; attempt<2; attempt++){
-    try{
-      data = await ghFetch(gh.owner, gh.repo);
-      break;
-    }catch(e){
-      lastErr = e;
-      await new Promise(r=>setTimeout(r, 800));
-    }
-  }
-  if(!data){
-    return {ok:false, error: lastErr?.message || 'Enrichment failed'};
-  }
-  data.enrichedAt = Date.now();
-  data.owner = gh.owner;
-  data.repo = gh.repo;
-  setEnrichment(game.id, data);
-  return {ok:true, data};
-}
-
-async function enrichAll({onProgress, onLog}={}){
-  const games = baseGames().filter(g=>extractGh(g.repositoryUrl));
-  const total = games.length;
-  let done = 0, errors = 0, skipped = 0;
-  const errList = [];
-  for(const g of games){
-    try{
-      const r = await enrichGame(g);
-      if(r.ok){done++; onLog?.(`✓ ${g.title}`, 'ok')}
-      else if(r.skipped){skipped++; onLog?.(`– ${g.title}: ${r.reason||'skipped'}`, '')}
-      else{errors++; errList.push({title:g.title, error:r.error}); onLog?.(`✗ ${g.title}: ${r.error}`, 'err')}
-    }catch(e){
-      errors++; errList.push({title:g.title, error:e.message});
-      onLog?.(`✗ ${g.title}: ${e.message}`, 'err');
-    }
-    onProgress?.(done+errors+skipped, total);
-    await new Promise(r=>setTimeout(r, 350));
-  }
-  return {done, errors, skipped, total, errList};
-}
-
-/* ---------- Cover ---------- */
-function coverHTML(g){
-  const h=hue(g.title);
-  const img=g.coverUrl?`<img class="cover-img" src="${esc(g.coverUrl)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">`:'';
-  return `<div class="cover-wrap" style="--hue:${h}"><span class="cover-initials">${esc(initials(g.title))}</span>${img}</div>`;
-}
-
-/* ---------- Card ---------- */
-function cardHTML(g){
-  const fav=isFav(g.id);
-  const demo=g.demoUrl, repo=g.repositoryUrl;
-  return `<article class="card">
-    <a class="card-media" href="#/game/${esc(g.id)}" aria-label="${esc(g.title)}">${coverHTML(g)}<div class="card-overlay"></div></a>
-    <div class="card-body">
-      <h3 class="card-title"><a href="#/game/${esc(g.id)}">${esc(g.title)}</a></h3>
-      <div class="card-chips">
-        ${g.featured?'<span class="chip chip-featured">★ Featured</span>':''}
-        ${g.stars?`<span class="chip chip-stars">★ ${g.stars.toLocaleString()}</span>`:''}
-        ${demo?'<span class="chip chip-live">demo</span>':''}
-        ${repo?'<span class="chip chip-repo">source</span>':''}
-        ${g.license?`<span class="chip">${esc(g.license)}</span>`:''}
-      </div>
-      <div class="card-actions">
-        ${demo?`<a class="btn btn-primary" href="${esc(demo)}" target="_blank" rel="noopener noreferrer nofollow" data-play="${esc(g.id)}">▶ Play</a>`:'<span class="btn btn-disabled">No demo</span>'}
-        ${repo?`<a class="btn btn-ghost" href="${esc(repo)}" target="_blank" rel="noopener noreferrer nofollow">Source</a>`:''}
-        <button class="icon-btn ${fav?'is-fav':''}" data-fav="${esc(g.id)}" aria-pressed="${fav}" aria-label="Favorite">${fav?'♥':'♡'}</button>
+  <div class="content-area">
+    <div class="hero" id="hero-content">
+      <h1 id="hero-title">Loading</h1>
+      <p id="hero-desc">Loading catalog...</p>
+      <div class="actions">
+        <a href="#" id="play-btn" class="btn-play" onclick="handlePlay(event)">Play</a>
+        <button class="btn-icon" id="fav-btn" onclick="toggleFavorite()">
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
       </div>
     </div>
-  </article>`;
-}
-function cardsHTML(list){return list.map(cardHTML).join('')}
 
-/* ---------- Nav ---------- */
-const NAV_LINKS=[
-  {href:'#/',label:'Home'},
-  {href:'#/browse',label:'Browse'},
-  {href:'#/library',label:'My Library'},
-  {href:'#/import',label:'Import'},
-  {href:'#/enrich',label:'Enrich'}
-];
-function renderNav(){
-  document.getElementById('nav-links').innerHTML=NAV_LINKS.map(l=>`<a class="nav-link" href="${l.href}">${esc(l.label)}</a>`).join('');
-  const cur=location.hash.split('?')[0]||'#/';
-  document.querySelectorAll('.nav-link').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===cur));
-}
-
-/* ---------- Router ---------- */
-function parseHash(){
-  const h=location.hash.slice(1)||'/';
-  const [path,qs]=h.split('?');
-  const parts=path.split('/').filter(Boolean);
-  return {parts,params:new URLSearchParams(qs||'')};
-}
-
-/* ---------- Home ---------- */
-function renderHome(){
-  const games=allGames();
-  const withDemo=games.filter(g=>g.demoUrl).length;
-  const withRepo=games.filter(g=>g.repositoryUrl).length;
-  const enriched=games.filter(g=>g.enrichedAt).length;
-  const featured=games.filter(g=>g.featured);
-  const playable=games.filter(g=>g.demoUrl).slice(0,12);
-  const recentIds=getRecent().map(r=>r.id);
-  const recentGames=recentIds.map(id=>games.find(g=>g.id===id)).filter(Boolean).slice(0,8);
-  const hs=hosts().slice(0,8);
-  document.getElementById('app').innerHTML=`
-    <section class="hero">
-      <div class="hero-glow"></div>
-      <div class="hero-inner">
-        <p class="hero-kicker">Curated browser game ports · ${games.length} games</p>
-        <h1>Great games. Right in your browser.</h1>
-        <p class="hero-sub">A hand-picked catalog of AAA and high-profile browser ports. Launch demos, inspect source code, enrich metadata from GitHub, and save favorites.</p>
-        <form class="hero-search" onsubmit="event.preventDefault();location.hash='#/browse?q='+encodeURIComponent(this.q.value)">
-          <input class="input" name="q" placeholder="Search games…" aria-label="Search games">
-          <button class="btn btn-primary" type="submit">Search</button>
-        </form>
-        <div class="hero-actions">
-          <a class="btn btn-primary btn-lg" href="#/browse">Browse ${games.length} games</a>
-          <a class="btn btn-gold btn-lg" href="#/enrich">✨ Enrich metadata</a>
+    <!-- REAL WIDGETS -->
+    <div class="widgets-grid">
+      
+      <!-- Recently Played -->
+      <div class="widget">
+        <div class="widget-header">
+          <span>Recently Played</span>
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
         </div>
-        <ul class="hero-stats">
-          <li><strong>${games.length}</strong><span>curated games</span></li>
-          <li><strong>${withDemo}</strong><span>playable demos</span></li>
-          <li><strong>${withRepo}</strong><span>with source</span></li>
-          <li><strong>${enriched}</strong><span>enriched</span></li>
-        </ul>
+        <div class="widget-games" id="recent-widget">
+          <div style="font-size:12px;color:#888;">Play a game to see it here.</div>
+        </div>
       </div>
-    </section>
-    ${featured.length?`<section class="shelf"><div class="shelf-head"><h2>★ Featured AAA titles</h2><a class="muted" href="#/browse">See all →</a></div><div class="shelf-row">${cardsHTML(featured)}</div></section>`:''}
-    ${recentGames.length?`<section class="shelf"><div class="shelf-head"><h2>Recently played</h2><a class="muted" href="#/library">My library →</a></div><div class="shelf-row">${cardsHTML(recentGames)}</div></section>`:''}
-    <section class="shelf"><div class="shelf-head"><h2>Playable demos</h2></div><div class="shelf-row">${cardsHTML(playable)}</div></section>
-    <section class="shelf"><div class="shelf-head"><h2>Browse by host</h2><p class="muted" style="margin:0;font-size:13px">Every demo runs on its original third-party host — GameVault hosts nothing.</p></div>
-      <div class="host-grid">
-        ${hs.map(([h,c])=>`<button class="host-tile" onclick="location.hash='#/browse?host='+encodeURIComponent('${esc(h)}')"><strong>${esc(h)}</strong><span class="muted">${c} game${c>1?'s':''}</span></button>`).join('')}
-      </div>
-    </section>
-    <p class="disclaimer">Curated to <strong>${games.length}</strong> AAA and high-profile games — all with working demos. Source-only entries, junk rows, and obscure ports without demos were removed. Use <a href="#/import">Import</a> to add more. Use <a href="#/enrich">Enrich</a> to fetch descriptions, cover art, and license info from GitHub.</p>
-  `;
-}
 
-/* ---------- Browse ---------- */
-function renderBrowse(){
-  const {params}=parseHash();
-  const all=allGames();
-  const q=params.get('q')||'';
-  const host=params.get('host')||'';
-  const sort=params.get('sort')||'featured';
-  let list=all.filter(g=>{
-    if(host){if(safeHost(g.demoUrl)!==host)return false}
-    if(!q)return true;
-    const s=q.toLowerCase();
-    return g.title.toLowerCase().includes(s)||g.description.toLowerCase().includes(s)||(g.genres||[]).some(x=>x.toLowerCase().includes(s));
-  });
-  if(sort==='alpha') list=[...list].sort((a,b)=>a.title.localeCompare(b.title));
-  else if(sort==='recent') list=[...list].sort((a,b)=>(b.dateAdded||'').localeCompare(a.dateAdded||''));
-  else list=[...list].sort((a,b)=>Number(b.featured)-Number(a.featured)||a.title.localeCompare(b.title));
-  const hostList=hosts();
-  document.getElementById('app').innerHTML=`
-    <section class="page-head"><h1>Browse the catalog</h1><p class="muted">${list.length} of ${all.length} games${host?` · host <strong>${esc(host)}</strong> <button class="btn btn-ghost btn-sm" onclick="location.hash='#/browse'">clear</button>`:''}</p></section>
-    <form class="filters" onsubmit="event.preventDefault()">
-      <input class="input" id="bq" placeholder="Search title or description…" value="${esc(q)}" aria-label="Search">
-      <select class="input" id="bhost" aria-label="Host">
-        <option value="">All hosts</option>
-        ${hostList.map(([h,c])=>`<option value="${esc(h)}" ${h===host?'selected':''}>${esc(h)} (${c})</option>`).join('')}
-      </select>
-      <select class="input" id="bsort" aria-label="Sort">
-        <option value="featured" ${sort==='featured'?'selected':''}>Default</option>
-        <option value="alpha" ${sort==='alpha'?'selected':''}>A → Z</option>
-        <option value="recent" ${sort==='recent'?'selected':''}>Recently added</option>
-      </select>
-      <label class="chip" style="padding:8px 12px;cursor:pointer;user-select:none"><input type="checkbox" id="bplay" style="margin-right:6px" ${params.get('playable')==='1'?'checked':''}>Playable only</label>
-    </form>
-    ${list.length===0?`<div class="state"><h3>No games match</h3><p class="muted">Try clearing the search or host filter.</p></div>`:`<div class="grid">${cardsHTML(list)}</div>`}
-  `;
-  const update=()=>{
-    const np=new URLSearchParams();
-    const qv=document.getElementById('bq').value; if(qv)np.set('q',qv);
-    const hv=document.getElementById('bhost').value; if(hv)np.set('host',hv);
-    const sv=document.getElementById('bsort').value; if(sv!=='featured')np.set('sort',sv);
-    if(document.getElementById('bplay').checked)np.set('playable','1');
-    location.hash='#/browse'+(np.toString()?('?'+np):'');
+      <!-- Favorites -->
+      <div class="widget">
+        <div class="widget-header">
+          <span>Your Favorites</span>
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+        <div class="widget-games" id="fav-widget">
+          <div style="font-size:12px;color:#888;">No favorites yet.</div>
+        </div>
+      </div>
+
+      <!-- Enrichment Engine -->
+      <div class="widget">
+        <div class="widget-header">
+          <span>GitHub Enrichment</span>
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <div style="font-size:12px;color:#aaa;margin-bottom:8px" id="enrich-stats">0 of 65 games enriched.</div>
+        <button class="btn-action" id="enrich-btn" onclick="runEnrichment()">
+          ✨ Fetch Real Cover Art
+        </button>
+      </div>
+
+      <!-- Catalog Stats -->
+      <div class="widget">
+        <div class="widget-header">
+          <span>Catalog Storage</span>
+          <svg viewBox="0 0 24 24"><path d="M20 6H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H4V8h16v8z"/></svg>
+        </div>
+        <div class="storage-text"><span>Total Games</span><span id="total-games-text">65</span></div>
+        <div class="storage-bar">
+          <div class="storage-fill" id="playable-bar" style="width: 100%"></div>
+        </div>
+        <div class="storage-text" style="margin-top:8px"><span>Playable Demos</span><span id="playable-count-text">65</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BROWSE SCREEN -->
+<div id="browse-screen">
+  <div class="browse-header">
+    <h2>Game Library</h2>
+    <div style="display:flex; gap:20px; align-items:center;">
+      <input type="text" class="search-input" placeholder="Search catalog..." id="search-input" onkeyup="filterGames()">
+      <button class="btn-play" onclick="closeBrowse()" style="padding: 10px 24px;">Back to OS</button>
+    </div>
+  </div>
+  <div class="game-grid" id="game-grid"></div>
+</div>
+
+<div id="toast">Notification</div>
+
+<script>
+  // ─── RAW CATALOG DATA (65 Games) ───
+  const RAW = [
+    ["Grand Theft Auto III","https://wasmarcade.com/gta3","",1],["Grand Theft Auto: Vice City","https://joncodeofficial.github.io/gta-vice-city-wasm/","",1],["Halo: Combat Evolved","https://mitchellhynes.com/halo/halo.html","",1],["Call of Duty: Black Ops Zombies","http://vel.gg/bo1z","",1],["Call of Duty: Modern Warfare 2","https://ovz-game-production.up.railway.app","",1],["Diablo","https://d07riv.github.io/diabloweb/","https://github.com/d07RiV/diabloweb",1],["Doom 3","https://gn-math.dev/?id=626","https://github.com/web-ports/doom-3",1],["Quake III Arena","https://q3.pieter.com","",1],["Quake II","https://q2.pieter.com","",1],["Half-Life","http://pixelsuft.github.io/hl/","https://github.com/Pixelsuft/hl",1],["Counter-Strike 1.6","https://csjs.live","",1],["Command & Conquer: Red Alert 2","https://chronodivide.com/","",1],["Command & Conquer: Generals Zero Hour","https://generals.wasm.ltd","",1],["The Simpsons: Hit & Run","https://glitchmod.com/games/the-simpsons-hit-run/mods/port-simpsons-hit-and-run","",1],["Return to Castle Wolfenstein","https://rtcw.pieter.com","",1],["Minecraft (EaglercraftX)","https://wasmarcade.com/minecraft","",0],["Sonic 3 A.I.R.","https://burnedpopcorn.github.io/","https://github.com/burnedpopcorn/sonic3air-webport",0],["Crash Bash Online","https://crashbash.app/","",0],["Crash Team Racing (High Octane)","https://rinnegatamante.github.io/Crash-Team-Racing-High-Octane/","",0],["Animal Crossing","https://retrogamescenter.ru/ports/ac-webport-main/index.html","https://github.com/web-ports/ac-gamecube",0],["Bendy and The Ink Machine","https://gn-math.github.io/web-port/bendy/","https://github.com/genizy/web-port/tree/main/bendy",0],["Brotato","https://gn-math.dev/?id=723","https://github.com/BlueGameMC/BrotatoWeb",0],["Buckshot Roulette","https://gn-math.github.io/web-port/buckshot-roulette/","https://github.com/genizy/web-port/tree/main/buckshot-roulette",0],["Celeste","https://gn-math.dev/?id=623","https://github.com/MercuryWorkshop/celeste-wasm",0],["Cuphead","https://gn-math.github.io/web-port/cuphead/","https://github.com/genizy/web-port/tree/main/cuphead",0],["Deltarune","https://aukak.itch.io/deltarune","",0],["Undertale (Deltatraveler)","https://gn-math.dev/?id=560","",0],["Baldi's Basics Plus","https://gn-math.github.io/web-port/baldi-plus/","https://github.com/genizy/web-port/tree/main/baldi-plus",0],["Baldi's Basics Classic Remastered","https://gn-math.github.io/web-port/baldi-remaster/","https://github.com/genizy/web-port/tree/main/baldi-remaster",0],["Amanda The Adventurer","https://gn-math.github.io/web-port/amanda-the-adventurer/","https://github.com/genizy/web-port/tree/main/amanda-the-adventurer",0],["Class of '09","https://gn-math.github.io/web-port/class-of-09/","https://github.com/genizy/web-port/tree/main/class-of-09",0],["Dead Plate","https://gn-math.github.io/web-port/dead-plate/","https://github.com/genizy/web-port/tree/main/dead-plate",0],["Cruelty Squad","https://gn-math.dev/?id=825","https://github.com/imt00dizzy/cruelty-squad",0],["Antonblast","https://gn-math.dev/?id=711","https://github.com/web-ports/antonblast",0],["Clustertruck","https://wasm.rip/files/ClusterTruck/clustertruck.html","https://github.com/wasmdotrip/Clustertruck-Port",0],["20 Minutes Till Dawn","https://gn-math.dev/?id=819","https://github.com/web-ports/20-minutes",0],["Among Us","https://wasm.rip/files/amongus/index.html","https://github.com/wasmdotrip/AmongUsPort",0],["Cave Story","https://midzer.de/wasm/cavestory/","https://github.com/midzer/nxengine-evo",0],["Cro-Mag Rally","https://midzer.de/wasm/cromagrally/","https://github.com/midzer/CroMagRally",0],["Descent (DXX-Rebirth)","https://midzer.de/wasm/descent1/","https://github.com/midzer/dxx-rebirth",0],["Commander Keen","https://www.jamesfmackenzie.com/chocolatekeen/","https://github.com/jamesfmackenzie/chocolatekeen",0],["Carmageddon","https://rgc.zone/ports/carmaweb/index.html","https://github.com/Carter54git/dethrace-ported-to-web",0],["3D Pinball – Space Cadet","https://ksylvestre.itch.io/space-cadet-pinball","https://github.com/k4zmu2a/SpaceCadetPinball",0],["Battle City","https://battle-city.berrry.app","https://github.com/vgrichina/battlecity",0],["Beneath a Steel Sky","https://scummweb.tsilva.eu/beneath-a-steel-sky/play","",0],["Caesar II","https://second-impressions.github.io/caesar2-port/","",0],["Daytona USA","https://johannruiz.github.io/Daytona-USA-Web/","",0],["Daggerfall","https://daggerfalljs.dev/","",0],["Cut the Rope DX","https://yell0wsuit.github.io/cuttherope-dx/","",0],["Bad Piggies","https://gn-math.dev/?id=752","",0],["Call of Duty Web Collection","https://cod-webports.pages.dev/","",0],["Call of Mini: Dino Hunter","https://comdh.krig.games/","",0],["Chasm: The Rift","https://rgc.zone/ports/chasmweb/run.html","",0],["Brutal Doom","https://rgc.zone/ports/brutaldoom/index.html","",0],["DOOM I & II","https://retrogamescenter.ru/ports/truedoom/index.html","",0],["Duke Nukem 3D","https://retrogamescenter.ru/ports/duke3dtg/index.html","",0],["LEGO Island","https://isle.pizza/","",0],["WipEout","https://glitchmod.com/games/wipeout/mods/port-wipeout","",0],["Skate 3 Fan Game","https://glitchmod.com/games/skate-3/mods/port-skate-3","",0],["PES 6","http://pes6.optijuegos.net","",0],["Urban Terror","https://ut.pieter.com","",0],["QuakeWorld","https://q1.pieter.com","",0],["NetQuake","https://www.netquake.io/","",0],["Doom Multiplayer (Silent Space Marine)","https://silentspacemarine.com/","",0],["Nacht der Untoten (CoD Zombies)","https://zombies.bitcoinsapi.com/","",0]
+  ];
+
+  // ─── STORAGE HELPERS ───
+  const store = {
+    get(k, f) { try { return JSON.parse(localStorage.getItem(k)) ?? f; } catch { return f; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
   };
-  document.getElementById('bq').addEventListener('input',debounce(update,250));
-  document.getElementById('bhost').addEventListener('change',update);
-  document.getElementById('bsort').addEventListener('change',update);
-  document.getElementById('bplay').addEventListener('change',update);
-}
+  const K = { fav: 'gv.fav.v1', recent: 'gv.recent.v1', enriched: 'gv.enriched.v1' };
 
-/* ---------- Detail ---------- */
-function renderGame(id){
-  const g=getGame(id);
-  if(!g) return render404();
-  pushRecent(g.id);
-  const demo=g.demoUrl,repo=g.repositoryUrl;
-  const fav=isFav(g.id);
-  const related=allGames().filter(x=>x.id!==g.id).slice(0,6);
-  const hasEnrich=getEnrichment(g.id);
-  document.getElementById('app').innerHTML=`
-    <a class="back-link" href="#/browse">← Back to browse</a>
-    <article>
-      <div class="detail-hero">
-        <div class="detail-cover">${coverHTML(g)}</div>
-        <div class="detail-info">
-          <h1>${esc(g.title)}${!demo&&!repo?'<span class="badge">incomplete</span>':''}</h1>
-          <div class="card-chips">
-            ${g.featured?'<span class="chip chip-featured">★ Featured</span>':''}
-            ${g.stars?`<span class="chip chip-stars">★ ${g.stars.toLocaleString()} stars</span>`:''}
-            ${demo?'<span class="chip chip-live">demo</span>':''}
-            ${repo?'<span class="chip chip-repo">source</span>':''}
-            ${g.license?`<span class="chip">${esc(g.license)}</span>`:''}
-          </div>
-          ${g.description?`<p class="detail-desc">${esc(g.description)}</p>`:`<p class="detail-desc muted">No description yet.${repo?' Click Enrich to fetch from GitHub.':' Add one from the editor on the Import page.'}</p>`}
-          <div class="detail-actions">
-            ${demo?`<a class="btn btn-primary btn-lg" href="${esc(demo)}" target="_blank" rel="noopener noreferrer nofollow" data-play="${esc(g.id)}">▶ Play Now</a>`:'<span class="btn btn-disabled btn-lg">No demo available</span>'}
-            ${repo?`<a class="btn btn-ghost btn-lg" href="${esc(repo)}" target="_blank" rel="noopener noreferrer nofollow">View Source Code</a>`:''}
-            <button class="btn btn-ghost btn-lg ${fav?'is-fav':''}" data-fav="${esc(g.id)}" aria-pressed="${fav}">${fav?'♥ Favorited':'♡ Favorite'}</button>
-            ${repo?`<button class="btn btn-gold btn-lg" id="enrich-btn" ${hasEnrich?'disabled':''}>${hasEnrich?'✨ Enriched':'✨ Enrich metadata'}</button>`:''}
-          </div>
-          <p class="disclaimer">Hosted by <strong>${demo?esc(safeHost(demo)):'—'}</strong>. GameVault links to this game — we don't host or redistribute it.</p>
-          <dl class="meta-table">
-            <div><dt>Repository</dt><dd>${repo?`<a href="${esc(repo)}" target="_blank" rel="noopener noreferrer nofollow">${esc(repo.replace('https://github.com/',''))}</a>`:'—'}</dd></div>
-            ${g.license?`<div><dt>License</dt><dd>${esc(g.license)}</dd></div>`:''}
-            <div><dt>Added</dt><dd>${esc(g.dateAdded||'—')}</dd></div>
-            <div><dt>Enriched</dt><dd>${hasEnrich?new Date(hasEnrich.enrichedAt).toLocaleDateString():'—'}</dd></div>
-          </dl>
-        </div>
-      </div>
-      <section class="shelf"><div class="shelf-head"><h2>More from the catalog</h2></div><div class="shelf-row">${cardsHTML(related)}</div></section>
-    </article>
-  `;
-  const eb=document.getElementById('enrich-btn');
-  if(eb && repo){
-    eb.addEventListener('click', async()=>{
-      eb.disabled=true; eb.textContent='✨ Enriching…';
-      const r = await enrichGame(g, {force:true});
-      if(r.ok){renderGame(g.id)}
-      else{eb.disabled=false; eb.textContent='✨ Retry enrich'; alert('Enrichment failed: '+(r.error||r.reason||'unknown'))}
-    });
-  }
-}
+  function getFavorites() { return store.get(K.fav, []); }
+  function getRecent() { return store.get(K.recent, []); }
+  function getEnriched() { return store.get(K.enriched, {}); }
 
-/* ---------- Enrich page ---------- */
-function renderEnrich(){
-  const games=baseGames();
-  const enrichable=games.filter(g=>extractGh(g.repositoryUrl));
-  const enriched=enrichmentCount();
-  document.getElementById('app').innerHTML=`
-    <section class="page-head">
-      <h1>✨ Enrich metadata</h1>
-      <p class="muted">Fetch descriptions, cover art, license, and star counts from public GitHub APIs. No API key required. Cached 7 days per game. Stored in this browser only.</p>
-    </section>
-    <section class="enrich-panel">
-      <h3>Catalog overview</h3>
-      <p>${games.length} games in catalog · ${enrichable.length} with GitHub repos (enrichable) · ${enriched} already enriched.</p>
-      <div class="enrich-controls">
-        <button class="btn btn-gold" id="enrich-run">✨ Enrich all (${enrichable.length} games)</button>
-        <button class="btn btn-ghost" id="enrich-clear">Clear all enrichment</button>
-      </div>
-      <div class="progress" id="enrich-progress-wrap" hidden><div class="progress-fill" id="enrich-progress" style="width:0%"></div></div>
-      <div class="enrich-log" id="enrich-log" hidden></div>
-      <p class="muted" style="margin-top:12px;font-size:12px">
-        Enrichment sources: <code>ungh.cc</code> (unjs proxy, no rate limit) with fallback to <code>api.github.com</code> (60 req/hr unauth). Cover art via <code>opengraph.githubassets.com</code>. Games without a GitHub repo cannot be enriched automatically — add them manually via Import → Add game.
-      </p>
-    </section>
-    <section class="shelf">
-      <div class="shelf-head"><h2>Games with enrichment</h2></div>
-      ${enriched===0?'<p class="muted">None yet. Click <strong>Enrich all</strong> above to start.</p>':`<div class="grid">${cardsHTML(games.filter(g=>getEnrichment(g.id)).map(view))}</div>`}
-    </section>
-  `;
-  const logEl=document.getElementById('enrich-log');
-  const progWrap=document.getElementById('enrich-progress-wrap');
-  const progFill=document.getElementById('enrich-progress');
-  const btn=document.getElementById('enrich-run');
-
-  document.getElementById('enrich-clear').addEventListener('click',()=>{
-    if(!confirm('Clear all enrichment data from this browser?')) return;
-    clearEnrichment();
-    renderEnrich();
-  });
-
-  btn.addEventListener('click', async()=>{
-    btn.disabled=true;
-    logEl.hidden=false; logEl.textContent='';
-    progWrap.hidden=false; progFill.style.width='0%';
-    const log=(msg,cls)=>{const span=document.createElement('div'); span.textContent=msg; if(cls) span.className=cls; logEl.appendChild(span); logEl.scrollTop=logEl.scrollHeight};
-    log(`Starting enrichment for ${enrichable.length} games…`);
-    const res = await enrichAll({
-      onProgress:(done,total)=>{progFill.style.width=(done/total*100).toFixed(1)+'%'},
-      onLog:log
-    });
-    log(`\nDone. ${res.done} enriched, ${res.skipped} skipped, ${res.errors} failed.`);
-    btn.disabled=false;
-    if(res.errors>0) log(`Failed games: ${res.errList.map(e=>e.title).join(', ')}`);
-  });
-}
-
-/* ---------- Library ---------- */
-function renderLibrary(){
-  const all=allGames();
-  const favs=getFavorites().map(id=>all.find(g=>g.id===id)).filter(Boolean);
-  const recent=getRecent().map(r=>all.find(g=>g.id===r.id)).filter(Boolean);
-  document.getElementById('app').innerHTML=`
-    <section class="page-head"><h1>My Library</h1><p class="muted">Saved locally in this browser. No account required.</p></section>
-    <section class="shelf">
-      <div class="shelf-head"><h2>Favorites (${favs.length})</h2>${favs.length?'<button class="btn btn-ghost" onclick="if(confirm(\'Clear all favorites?\')){setFavorites([]);renderLibrary();renderNav()}">Clear all</button>':''}</div>
-      ${favs.length?`<div class="grid">${cardsHTML(favs)}</div>`:`<div class="state"><h3>No favorites yet</h3><p class="muted">Tap the heart on any game to save it here.</p><a class="btn btn-primary" href="#/browse">Browse games</a></div>`}
-    </section>
-    <section class="shelf">
-      <div class="shelf-head"><h2>Recently played (${recent.length})</h2></div>
-      ${recent.length?`<div class="grid">${cardsHTML(recent)}</div>`:`<div class="state"><h3>Nothing played yet</h3><p class="muted">Games you launch from GameVault will appear here.</p></div>`}
-    </section>
-  `;
-}
-
-/* ---------- Import ---------- */
-function renderImport(){
-  document.getElementById('app').innerHTML=`
-    <section class="page-head"><h1>Import catalog</h1><p class="muted">Paste the remaining rows from the source catalog, upload a file, or add single games. Nothing leaves your browser.</p></section>
-    <section>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted);margin-bottom:8px">
-        Paste Markdown table
-        <textarea class="input" id="imp-text" placeholder="| # | Game | Demo | Repository |&#10;| ---: | --- | --- | --- |&#10;| 1 | Example Game | [▶ Play](https://example.com) | [repo](https://github.com/user/repo) |"></textarea>
-      </label>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
-        <button class="btn btn-primary" id="imp-parse">Parse Markdown</button>
-        <label class="btn btn-ghost" style="position:relative;cursor:pointer">Upload file<input type="file" id="imp-file" accept=".md,.txt,.csv,.json" hidden style="position:absolute;inset:0;opacity:0;cursor:pointer"></label>
-        <button class="btn btn-ghost" id="imp-export">Download games.json</button>
-      </div>
-      <div id="imp-result"></div>
-    </section>
-    <section class="shelf" style="margin-top:40px">
-      <div class="shelf-head"><h2>Add a single game</h2></div>
-      <div class="form-row"><label>Title<input class="input" id="ng-title" placeholder="Game title"></label></div>
-      <div class="form-row">
-        <label>Demo URL<input class="input" id="ng-demo" placeholder="https://…"></label>
-        <label>Repository URL<input class="input" id="ng-repo" placeholder="https://…"></label>
-      </div>
-      <div class="form-row"><label>Description<textarea class="input" id="ng-desc" rows="2" placeholder="Optional" style="min-height:60px"></textarea></label></div>
-      <button class="btn btn-primary" id="ng-save">Add game</button>
-      <div id="ng-msg" class="muted" style="margin-top:8px"></div>
-    </section>
-    <section class="shelf">
-      <div class="shelf-head"><h2>Custom games (${getCustom().length})</h2>${getCustom().length?'<button class="btn btn-ghost" onclick="if(confirm(\'Remove all custom games?\')){setCustom([]);invalidate();renderImport();renderNav()}">Remove all</button>':''}</div>
-      <div id="custom-list"></div>
-    </section>
-    <p class="disclaimer">Imported games are stored in this browser only. To publish, click <strong>Download games.json</strong> and replace the RAW array in this file (or host the JSON and load it).</p>
-  `;
-  bindImport();
-  renderCustomList();
-}
-
-function parseMarkdown(text){
-  const rows=[];const errors=[];let duplicates=0;let total=0;
-  const lines=text.split(/\r?\n/).filter(l=>l.trim().startsWith('|'));
-  if(lines.length<2) return {rows,errors:['No Markdown table rows found.'],duplicates:0,total:0};
-  const split=l=>l.trim().replace(/^\|/,'').replace(/\|$/,'').split('|').map(c=>c.trim());
-  let header=[],start=0;
-  for(let i=0;i<Math.min(3,lines.length);i++){
-    const c=split(lines[i]).map(x=>x.toLowerCase());
-    if(c.some(x=>x.includes('game')||x.includes('title')||x.includes('name'))){header=c;start=i+1;break}
-  }
-  const find=(...ns)=>header.findIndex(h=>ns.some(n=>h.includes(n)));
-  let tCol=-1,dCol=-1,rCol=-1;
-  if(header.length){tCol=find('game','title','name');dCol=find('demo','play','browser');rCol=find('repo','github','source','code')}
-  else{tCol=1;dCol=2;rCol=3}
-  const urls=cell=>{if(!cell)return[];const out=[];const md=/\[[^\]]*\]\(([^)\s]+)\)/g;let m;while(m=md.exec(cell)){if(/^https?:/i.test(m[1])&&!out.includes(m[1]))out.push(m[1])}const pl=cell.match(/https?:\/\/[^\s)\]"'<>|]+/gi)||[];for(const p of pl){const c=p.replace(/[.,;]+$/,'');if(!out.includes(c))out.push(c)}return out};
-  const seen=new Set();
-  for(let i=start;i<lines.length;i++){
-    const c=split(lines[i]);
-    if(c.every(x=>/^:?-{2,}:?$/.test(x.replace(/\s+/g,''))))continue;
-    total++;
-    const rawT=tCol>=0?c[tCol]||'':'';
-    const title=rawT.replace(/\[([^\]]+)\]\([^)]*\)/g,'$1').replace(/[*_`]/g,'').trim();
-    if(!title)continue;
-    const dUrls=urls(dCol>=0?c[dCol]||'':'');const rUrls=urls(rCol>=0?c[rCol]||'':'');
-    const d=dUrls[0]||'',r=rUrls[0]||'';
-    const issues=[];
-    if(d&&!isValidUrl(d))issues.push('Invalid demo URL');
-    if(r&&!isValidUrl(r))issues.push('Invalid repo URL');
-    if(!d&&!r)issues.push('No demo or repository');
-    const key=slugKey(title);
-    if(seen.has(key)){duplicates++;continue}
-    seen.add(key);
-    rows.push({title,demoUrl:safe(d),repositoryUrl:safe(r),issues});
-  }
-  return {rows,errors,duplicates,total};
-}
-
-function bindImport(){
-  document.getElementById('imp-parse').addEventListener('click',()=>{
-    const text=document.getElementById('imp-text').value;
-    if(!text.trim()){document.getElementById('imp-result').innerHTML='<div class="state state-error"><h3>Nothing to parse</h3></div>';return}
-    try{
-      const res=parseMarkdown(text);
-      const withIssues=res.rows.filter(r=>r.issues.length>0).length;
-      document.getElementById('imp-result').innerHTML=`
-        <div class="import-stats">
-          <div><strong>${res.total}</strong><span>rows seen</span></div>
-          <div><strong>${res.rows.length}</strong><span>valid</span></div>
-          <div><strong>${res.duplicates}</strong><span>duplicates</span></div>
-          <div><strong>${withIssues}</strong><span>with warnings</span></div>
-        </div>
-        ${res.rows.length===0?`<div class="state state-error"><h3>No valid rows</h3><p class="muted">${esc((res.errors||[]).join(' '))}</p></div>`:`
-        <div class="table-wrap"><table><thead><tr><th>Title</th><th>Demo</th><th>Repository</th><th>Warnings</th></tr></thead><tbody>
-          ${res.rows.slice(0,100).map(r=>`<tr><td>${esc(r.title)}</td><td class="cell-url">${r.demoUrl?`<a href="${esc(r.demoUrl)}" target="_blank" rel="noopener noreferrer nofollow">link</a>`:'—'}</td><td class="cell-url">${r.repositoryUrl?`<a href="${esc(r.repositoryUrl)}" target="_blank" rel="noopener noreferrer nofollow">link</a>`:'—'}</td><td class="cell-warn">${esc(r.issues.join('; ')||'—')}</td></tr>`).join('')}
-        </tbody></table></div>
-        ${res.rows.length>100?'<p class="muted" style="margin-top:8px">Showing first 100 rows. Import still uses all valid rows.</p>':''}
-        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn btn-primary" id="imp-go">Import ${res.rows.length} games</button>
-        </div>`}
-      `;
-      const go=document.getElementById('imp-go');
-      if(go) go.addEventListener('click',()=>importRows(res.rows));
-    }catch(e){
-      document.getElementById('imp-result').innerHTML=`<div class="state state-error"><h3>Parse error</h3><p class="muted">${esc(e.message)}</p></div>`;
+  function toggleFavorite() {
+    const game = games[activeIndex];
+    let favs = getFavorites();
+    if (favs.includes(game.id)) {
+      favs = favs.filter(id => id !== game.id);
+      showToast("Removed from Favorites");
+    } else {
+      favs.push(game.id);
+      showToast("Added to Favorites");
     }
-  });
-  document.getElementById('imp-file').addEventListener('change',async e=>{
-    const f=e.target.files&&e.target.files[0];if(!f)return;
-    const text=await f.text();
-    if(f.name.endsWith('.json')){
-      try{
-        const arr=JSON.parse(text);
-        if(!Array.isArray(arr))throw new Error('JSON must be an array');
-        mergeGames(arr.map(g=>({...g,id:g.id||slugKey(g.title||'game')})));
-        renderCustomList();
-        renderNav();
-        alert(`Imported ${arr.length} games from JSON.`);
-      }catch(err){alert('JSON error: '+err.message)}
+    store.set(K.fav, favs);
+    updateHeroUI(game);
+    renderWidgets();
+  }
+
+  function pushRecent(id) {
+    let recents = getRecent().filter(x => x.id !== id);
+    recents.unshift({ id, at: Date.now() });
+    store.set(K.recent, recents.slice(0, 10));
+    renderWidgets();
+  }
+
+  // ─── DATA PARSING ───
+  function slugKey(t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'game'; }
+  function hue(str) { let h = 0; for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0; return h % 360; }
+  
+  const games = RAW.map(([title, demo, repo, featured]) => ({
+    id: slugKey(title),
+    title: title,
+    demoUrl: demo,
+    repoUrl: repo,
+    hue: hue(title)
+  }));
+
+  // Apply Enrichment data
+  function getGameData(game) {
+    const e = getEnriched()[game.id];
+    return {
+      ...game,
+      cover: e?.coverUrl || null,
+      description: e?.description || 'A classic web port. Click Play to launch.',
+      hasRepo: !!game.repoUrl
+    };
+  }
+
+  // ─── UI LOGIC ───
+  let activeIndex = 0;
+
+  function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      let p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDelay = Math.random() * 4 + 's';
+      p.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      container.appendChild(p);
+    }
+  }
+  createParticles();
+
+  function wakeSystem() {
+    document.getElementById('boot-screen').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('boot-screen').style.display = 'none';
+      document.getElementById('main-ui').classList.add('active');
+      selectGame(0); // Initialize first game
+    }, 800);
+  }
+
+  function updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const mins = String(now.getMinutes()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    document.getElementById('clock').textContent = `${hours}:${mins} ${ampm}`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  function renderCarousel() {
+    const container = document.getElementById('carousel');
+    container.innerHTML = '';
+    
+    // Only show featured games or first 20 to keep DOM light
+    games.forEach((game, index) => {
+      const data = getGameData(game);
+      const item = document.createElement('div');
+      item.className = `carousel-item ${index === activeIndex ? 'active' : ''}`;
+      item.dataset.index = index;
+      
+      if (data.cover) {
+        item.style.backgroundImage = `url('${data.cover}')`;
+      } else {
+        item.style.background = `linear-gradient(135deg, hsl(${game.hue} 60% 30%), hsl(${game.hue+40} 50% 10%))`;
+        item.innerHTML = `<div class="fallback-cover">${game.title.slice(0,2)}</div>`;
+      }
+      
+      item.onclick = () => selectGame(index);
+      item.onmouseenter = () => selectGame(index);
+      container.appendChild(item);
+    });
+
+    // Add Library Icon at the end
+    const lib = document.createElement('div');
+    lib.className = 'carousel-item';
+    lib.style.background = 'rgba(255,255,255,0.1)';
+    lib.innerHTML = `<svg viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>`;
+    lib.onclick = openBrowse;
+    container.appendChild(lib);
+  }
+
+  function selectGame(index) {
+    activeIndex = index;
+    const game = getGameData(games[index]);
+
+    // Update Carousel Focus
+    const items = document.querySelectorAll('.carousel-item');
+    items.forEach((item, i) => {
+      if (item.dataset.index == index) {
+        item.classList.add('active');
+        item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
+    // Update Background
+    const bg = document.getElementById('hero-bg');
+    if (game.cover) {
+      bg.style.backgroundImage = `url('${game.cover}')`;
+      bg.style.backgroundColor = '#000';
+    } else {
+      bg.style.backgroundImage = 'none';
+      bg.style.backgroundColor = `hsl(${game.hue} 50% 10%)`;
+    }
+
+    // Update Hero Text
+    document.getElementById('hero-content').style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('hero-title').textContent = game.title;
+      document.getElementById('hero-desc').textContent = game.description;
+      document.getElementById('selected-title').textContent = game.title;
+      
+      // Update Play Button
+      const playBtn = document.getElementById('play-btn');
+      playBtn.href = game.demoUrl;
+      
+      // Update Fav Button
+      const favBtn = document.getElementById('fav-btn');
+      const isFav = getFavorites().includes(game.id);
+      favBtn.classList.toggle('active', isFav);
+      
+      document.getElementById('hero-content').style.opacity = '1';
+    }, 150);
+  }
+
+  function handlePlay(e) {
+    // Record play time
+    pushRecent(games[activeIndex].id);
+    // Let default link behavior open the game
+  }
+
+  function renderWidgets() {
+    const recentEl = document.getElementById('recent-widget');
+    const favEl = document.getElementById('fav-widget');
+    
+    // Recent
+    const recents = getRecent().map(r => games.find(g => g.id === r.id)).filter(Boolean);
+    if (recents.length === 0) {
+      recentEl.innerHTML = '<div style="font-size:12px;color:#888;">Play a game to see it here.</div>';
+    } else {
+      recentEl.innerHTML = recents.slice(0, 4).map(g => {
+        const data = getGameData(g);
+        const bg = data.cover ? `url('${data.cover}')` : `linear-gradient(135deg, hsl(${g.hue} 60% 30%), #000)`;
+        return `<div class="widget-game-cover" style="background-image:${bg}" onclick="selectGame(${games.indexOf(g)})"></div>`;
+      }).join('');
+    }
+
+    // Favorites
+    const favs = getFavorites().map(id => games.find(g => g.id === id)).filter(Boolean);
+    if (favs.length === 0) {
+      favEl.innerHTML = '<div style="font-size:12px;color:#888;">No favorites yet.</div>';
+    } else {
+      favEl.innerHTML = favs.slice(0, 4).map(g => {
+        const data = getGameData(g);
+        const bg = data.cover ? `url('${data.cover}')` : `linear-gradient(135deg, hsl(${g.hue} 60% 30%), #000)`;
+        return `<div class="widget-game-cover" style="background-image:${bg}" onclick="selectGame(${games.indexOf(g)})"></div>`;
+      }).join('');
+    }
+
+    // Enrichment stats
+    const enriched = Object.keys(getEnriched()).length;
+    document.getElementById('enrich-stats').textContent = `${enriched} of ${games.length} games enriched.`;
+    
+    // Catalog stats
+    document.getElementById('total-games-text').textContent = games.length;
+    const playable = games.filter(g => g.demoUrl).length;
+    document.getElementById('playable-count-text').textContent = playable;
+  }
+
+  // ─── ENRICHMENT ───
+  async function runEnrichment() {
+    const btn = document.getElementById('enrich-btn');
+    btn.disabled = true;
+    btn.textContent = 'Fetching...';
+    
+    let enriched = getEnriched();
+    let count = 0;
+    
+    for (const game of games) {
+      if (!game.repoUrl) continue;
+      if (enriched[game.id]) continue; // Skip already done
+      
+      const m = game.repoUrl.match(/github\.com\/([^/]+)\/([^/?#]+)/i);
+      if (!m) continue;
+      
+      try {
+        const res = await fetch(`https://ungh.cc/repos/${m[1]}/${m[2]}`);
+        if (res.ok) {
+          const data = await res.json();
+          const r = data.repo || data;
+          if (r && (r.description || r.stars)) {
+            enriched[game.id] = {
+              description: r.description || '',
+              coverUrl: `https://opengraph.githubassets.com/1/${m[1]}/${m[2]}`
+            };
+            count++;
+            store.set(K.enriched, enriched);
+          }
+        }
+      } catch(e) {}
+      // Small delay to avoid rate limits
+      await new Promise(r => setTimeout(r, 100));
+    }
+    
+    btn.textContent = `✨ Enrichment Complete (${count} new)`;
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = '✨ Fetch Real Cover Art';
+      renderCarousel();
+      selectGame(activeIndex);
+      renderWidgets();
+    }, 2000);
+  }
+
+  // ─── BROWSE SCREEN ───
+  function openBrowse() {
+    document.getElementById('browse-screen').classList.add('active');
+    renderGrid(games);
+  }
+
+  function closeBrowse() {
+    document.getElementById('browse-screen').classList.remove('active');
+  }
+
+  function renderGrid(gameList) {
+    const grid = document.getElementById('game-grid');
+    grid.innerHTML = '';
+    
+    gameList.forEach(game => {
+      const data = getGameData(game);
+      const div = document.createElement('div');
+      div.className = 'grid-item';
+      
+      let bgStyle = data.cover 
+        ? `background-image: url('${data.cover}')` 
+        : `background: linear-gradient(135deg, hsl(${game.hue} 60% 30%), #000);`;
+
+      div.innerHTML = `
+        <div class="grid-cover" style="${bgStyle}">
+          ${data.cover ? '' : game.title.slice(0,2)}
+        </div>
+        <div class="grid-title">${game.title}</div>
+      `;
+      div.onclick = () => {
+        closeBrowse();
+        const idx = games.findIndex(g => g.id === game.id);
+        if (idx !== -1) selectGame(idx);
+      };
+      grid.appendChild(div);
+    });
+  }
+
+  function filterGames() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const filtered = games.filter(g => g.title.toLowerCase().includes(query));
+    renderGrid(filtered);
+  }
+
+  // ─── TOAST ───
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ─── KEYBOARD NAVIGATION ───
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('boot-screen').style.display !== 'none') {
+      if (e.key === 'Enter') wakeSystem();
       return;
     }
-    document.getElementById('imp-text').value=text;
-    document.getElementById('imp-parse').click();
+
+    if (document.getElementById('browse-screen').classList.contains('active')) {
+      if (e.key === 'Escape') closeBrowse();
+      return;
+    }
+
+    if (e.key === 'ArrowRight') {
+      selectGame((activeIndex + 1) % games.length);
+    } else if (e.key === 'ArrowLeft') {
+      selectGame((activeIndex - 1 + games.length) % games.length);
+    } else if (e.key === 'Enter') {
+      handlePlay(e);
+      window.open(games[activeIndex].demoUrl, '_blank');
+    } else if (e.key === 'Escape') {
+      // Deselect? Not needed here
+    }
   });
-  document.getElementById('imp-export').addEventListener('click',()=>{
-    const merged=allGames();
-    const blob=new Blob([JSON.stringify(merged,null,2)],{type:'application/json'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='games.json';a.click();
-    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-  });
-  document.getElementById('ng-save').addEventListener('click',()=>{
-    const t=document.getElementById('ng-title').value.trim();
-    const d=document.getElementById('ng-demo').value.trim();
-    const r=document.getElementById('ng-repo').value.trim();
-    const desc=document.getElementById('ng-desc').value.trim();
-    if(!t){document.getElementById('ng-msg').textContent='Title is required';return}
-    if(d&&!isValidUrl(d)){document.getElementById('ng-msg').textContent='Demo URL is invalid';return}
-    if(r&&!isValidUrl(r)){document.getElementById('ng-msg').textContent='Repository URL is invalid';return}
-    const game={id:slugKey(t),title:t,description:desc,demoUrl:safe(d),repositoryUrl:safe(r),coverUrl:'',screenshots:[],trailerUrl:'',genres:[],year:null,players:'',featured:false,dateAdded:new Date().toISOString().slice(0,10),source:'Manual entry'};
-    mergeGames([game]);
-    document.getElementById('ng-title').value='';
-    document.getElementById('ng-demo').value='';
-    document.getElementById('ng-repo').value='';
-    document.getElementById('ng-desc').value='';
-    document.getElementById('ng-msg').textContent=`Added "${t}".`;
-    renderCustomList();renderNav();
-  });
-}
 
-function importRows(rows){
-  const games=rows.filter(r=>r.title).map(r=>({id:slugKey(r.title),title:r.title,description:'',demoUrl:r.demoUrl,repositoryUrl:r.repositoryUrl,coverUrl:'',screenshots:[],trailerUrl:'',genres:[],year:null,players:'',featured:false,dateAdded:new Date().toISOString().slice(0,10),source:'Imported from Markdown'}));
-  mergeGames(games);
-  document.getElementById('imp-result').innerHTML=`<div class="state"><h3>Imported ${games.length} games</h3><p class="muted">Stored in this browser only. Click <strong>Download games.json</strong> to publish.</p><a class="btn btn-primary" href="#/browse">Browse now</a></div>`;
-  renderCustomList();renderNav();
-}
-function mergeGames(games){
-  const existing=getCustom();
-  const map=new Map(existing.map(g=>[g.id,g]));
-  for(const g of games) if(g&&g.title&&g.id) map.set(g.id,{...map.get(g.id)||{},...g,id:g.id});
-  setCustom(Array.from(map.values()));
-  invalidate();
-}
-function renderCustomList(){
-  const el=document.getElementById('custom-list');if(!el)return;
-  const list=getCustom();
-  if(list.length===0){el.innerHTML='<p class="muted">No custom games yet. Paste a Markdown table or add one above.</p>';return}
-  el.innerHTML=`<div class="table-wrap"><table><thead><tr><th>Title</th><th>Demo</th><th>Repo</th><th></th></tr></thead><tbody>
-    ${list.map(g=>`<tr><td>${esc(g.title)}</td><td class="cell-url">${g.demoUrl?`<a href="${esc(g.demoUrl)}" target="_blank" rel="noopener noreferrer nofollow">link</a>`:'—'}</td><td class="cell-url">${g.repositoryUrl?`<a href="${esc(g.repositoryUrl)}" target="_blank" rel="noopener noreferrer nofollow">link</a>`:'—'}</td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:12px" onclick="removeCustom('${esc(g.id)}')">Remove</button></td></tr>`).join('')}
-  </tbody></table></div>`;
-}
-function removeCustom(id){
-  setCustom(getCustom().filter(g=>g.id!==id));
-  invalidate();renderCustomList();renderNav();
-}
-
-/* ---------- 404 ---------- */
-function render404(){
-  document.getElementById('app').innerHTML=`<div class="state"><h1>404</h1><h3>Page not found</h3><p class="muted">The game or page you're looking for isn't in this catalog.</p><a class="btn btn-primary" href="#/">Go home</a></div>`;
-}
-
-/* ---------- Router dispatch ---------- */
-function render(){
-  renderNav();
-  const {parts}=parseHash();
-  window.scrollTo(0,0);
-  if(parts.length===0)return renderHome();
-  if(parts[0]==='browse')return renderBrowse();
-  if(parts[0]==='game'&&parts[1])return renderGame(parts[1]);
-  if(parts[0]==='library')return renderLibrary();
-  if(parts[0]==='import')return renderImport();
-  if(parts[0]==='enrich')return renderEnrich();
-  return render404();
-}
-
-/* ---------- Event delegation ---------- */
-document.addEventListener('click',e=>{
-  const favBtn=e.target.closest('[data-fav]');
-  if(favBtn){
-    const id=favBtn.dataset.fav;
-    const nowFav=toggleFav(id);
-    favBtn.classList.toggle('is-fav',nowFav);
-    favBtn.setAttribute('aria-pressed',String(nowFav));
-    if(favBtn.classList.contains('btn')) favBtn.textContent=nowFav?'♥ Favorited':'♡ Favorite';
-    else favBtn.textContent=nowFav?'♥':'♡';
-    return;
-  }
-  const play=e.target.closest('[data-play]');
-  if(play) pushRecent(play.dataset.play);
-});
-
-/* ---------- Utility ---------- */
-function debounce(fn,ms){let t;return function(){const a=arguments,c=this;clearTimeout(t);t=setTimeout(()=>fn.apply(c,a),ms)}}
-
-/* ---------- Boot ---------- */
-window.addEventListener('hashchange',render);
-window.addEventListener('DOMContentLoaded',()=>{if(!location.hash)location.hash='#/';render()});
-render();
+  // Initialize
+  renderCarousel();
+  renderWidgets();
 </script>
 </body>
 </html>
